@@ -1,7 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Categories
 
 # Create your views here.
 def index(request):
-    # return HttpResponse('works')
-    return render(request, 'categories/index.html')
+    categories = Categories.objects.all()
+    context = {
+        'categories': categories
+    }
+    return render(request, 'categories/index.html', context)
+
+def details(request, id):
+    category = Categories.objects.get(id=id)
+    context = {
+        'category': category
+    }
+
+    return render(request, 'categories/details.html', context)

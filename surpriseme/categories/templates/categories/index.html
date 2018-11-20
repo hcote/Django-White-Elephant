@@ -1,12 +1,17 @@
 <!-- tells the page we're going to use a block from cat/layout.html  -->
 {% extends 'categories/layout.html' %}
 
-<!-- the content of this page must be wrapped between the line below and the {%endblock%} at the end -->
+<!-- the content of this page must be wrapped between the line below and the {endblock} at the end -->
 {% block content %}
 <!-- already in the body tag expressed in the layout.html -->
 <main>
     <div>
-        <p>Main body text</p>
+        <h2>Categories</h2>
+        <ul>
+            {% for category in categories %}
+            <li><a href="/categories/details/{{category.id}}">{{category.name}}</a></li>
+            {% endfor %}
+        </ul>
     </div>
 </main>
 {% endblock %}
