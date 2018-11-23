@@ -10,3 +10,8 @@ class Categories(models.Model):
     # adding this so in the backend there are no double plurals
     class Meta:
         verbose_name_plural = 'Categories'
+
+class Groups(model.Model):
+    owner_id = models.ForeignKey(Groups, User)
+    category_id = models.ForeignKey(Groups, Categories)
+    members = 
