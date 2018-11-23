@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your models here.
 class Categories(models.Model):
@@ -11,7 +13,7 @@ class Categories(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-class Groups(model.Model):
-    owner_id = models.ForeignKey(Groups, User)
-    category_id = models.ForeignKey(Groups, Categories)
-    members = 
+class Group(models.Model):
+    owner_id = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    member_ids = models.ManyToManyField(User, related_name='members', blank=True)
