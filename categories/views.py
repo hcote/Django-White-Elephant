@@ -9,13 +9,19 @@ from .forms import NewGroup
 # un-comment line below to restrict page access to only logged in users
 # @login_required
 def index(request):
-    categories = Categories.objects.all()
-    form = NewGroup()
-    context = {
-        'categories': categories,
-        'form': form,
-    }
-    return render(request, 'categories/index.html', context)
+    if request.method == 'POST':
+        form = NewGroup(request.POST)
+        if form.is_valid:
+            group = form.save()
+            return HttpResponse(content='Group Created!')
+    else:
+        categories = Categories.objects.all()
+        form = NewGroup()
+        context = {
+            'categories': categories,
+            'form': form,
+        }
+        return render(request, 'categories/index.html', context)
 
 def details(request, id):
     category = Categories.objects.get(id=id)
@@ -26,4 +32,3 @@ def details(request, id):
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')
-
