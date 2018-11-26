@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Categories
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -20,3 +21,7 @@ def details(request, id):
     }
 
     return render(request, 'categories/details.html', context)
+
+def default_redirect_login_page(request):
+    return redirect('/accounts/login')
+

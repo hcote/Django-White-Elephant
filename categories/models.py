@@ -14,6 +14,7 @@ class Categories(models.Model):
         verbose_name_plural = 'Categories'
 
 class Group(models.Model):
-    owner_id = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    member_ids = models.ManyToManyField(User, related_name='members', blank=True)
+    owner = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE)
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    max_num = models.IntegerField()
+    members = models.ManyToManyField(User, related_name='members', blank=True)
