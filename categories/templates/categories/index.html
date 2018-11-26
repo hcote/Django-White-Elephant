@@ -14,16 +14,10 @@
         </ul>
     </div>
     <div>Create New Group</div>
-    <form action="">
-        <label for="">Category</label>
-        <select name="" id="">
-            {% for category in categories %}
-            <option>{{category.name}}</option>
-            {% endfor %}
-        </select>
-        <label for="">Max Number of Members</label>
-        <input type="number">
-        <input type="submit">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
     </form>
 </main>
 {% endblock %}

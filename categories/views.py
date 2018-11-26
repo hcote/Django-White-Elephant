@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Categories
 from django.shortcuts import redirect
+from .forms import NewGroup
 
 # Create your views here.
 
@@ -9,17 +10,18 @@ from django.shortcuts import redirect
 # @login_required
 def index(request):
     categories = Categories.objects.all()
+    form = NewGroup()
     context = {
-        'categories': categories
+        'categories': categories,
+        'form': form,
     }
     return render(request, 'categories/index.html', context)
 
 def details(request, id):
     category = Categories.objects.get(id=id)
     context = {
-        'category': category
+        'category': category,
     }
-
     return render(request, 'categories/details.html', context)
 
 def default_redirect_login_page(request):

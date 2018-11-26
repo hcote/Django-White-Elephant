@@ -17,4 +17,6 @@ class Group(models.Model):
     owner = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     max_num = models.IntegerField()
+    start_date = models.DateField()
+    months = models.IntegerField()
     members = models.ManyToManyField(User, related_name='members', blank=True)
