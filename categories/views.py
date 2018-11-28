@@ -11,7 +11,7 @@ from .forms import NewGroup
 def index(request):
     if request.method == 'POST':
         form = NewGroup(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             group = form.save()
             return HttpResponse(content='Group Created!')
     else:

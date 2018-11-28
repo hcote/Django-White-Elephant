@@ -1,7 +1,7 @@
 from django import forms
+from .models import Group
 
-class NewGroup(ModelForm):
-    category = forms.CharField(label='Category')
-    max_members = forms.IntegerField(label='Number of Members')
-    start_date = forms.DateField(label='Start Date')
-    months = forms.IntegerField(label='Number of Months')
+class NewGroup(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ('category', 'members', 'start_date', 'months')
