@@ -13,7 +13,7 @@ def index(request):
         form = NewGroup(request.POST)
         if form.is_valid():
             group = form.save()
-            return HttpResponse(content='Group Created!')
+            return render(request, 'categories/index.html')
     else:
         categories = Categories.objects.all()
         form = NewGroup()
