@@ -12,8 +12,10 @@ def index(request):
     if request.method == 'POST':
         form = NewGroup(request.POST)
         if form.is_valid():
-            group = form.save()
+            form.save()
             return render(request, 'categories/index.html')
+        else:
+            return HttpResponse('error creating group')
     else:
         categories = Categories.objects.all()
         form = NewGroup()

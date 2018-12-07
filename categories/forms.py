@@ -4,4 +4,4 @@ from .models import Group
 class NewGroup(forms.ModelForm):
     class Meta:
         model = Group
-        fields = ('category', 'members', 'start_date', 'months')
+        fields = ('owner', 'category', 'max_num', 'members', 'months')
