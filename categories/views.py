@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Categories
+from .models import Categories, Group
 from django.shortcuts import redirect
 from .forms import NewGroup
 
@@ -31,6 +31,13 @@ def details(request, id):
         'category': category,
     }
     return render(request, 'categories/details.html', context)
+
+def groups(request):
+    groups = Group.objects.all()
+    context = {
+        'groups': groups
+    }
+    return render(request, 'categories/groups.html', context)
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')
