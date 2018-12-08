@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Categories, Group
 from django.shortcuts import redirect
 from .forms import NewGroup
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -10,9 +11,12 @@ from .forms import NewGroup
 # @login_required
 def index(request):
     if request.method == 'POST':
+
         form = NewGroup(request.POST)
         if form.is_valid():
-            form.save()
+            group = form.save(commit=False)
+            group.owner = request.user
+            group.save()
             return render(request, 'categories/index.html')
         else:
             return HttpResponse('error creating group')
