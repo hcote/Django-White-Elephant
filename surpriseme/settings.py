@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'surpriseme',
 ]
 
 MIDDLEWARE = [
@@ -126,8 +127,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
 
 # this part won't work yet
 #  This logs any emails sent to the console (so you can copy the password reset link from the console).
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']

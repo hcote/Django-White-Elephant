@@ -2,9 +2,11 @@
 
 {% block content %}
 <main>
-    <div>
-        <h2>{{category.name}}</h2>
-        <p>{{category.body}}</p>
+    <ul>
+        {% for group in groups %}
+        <li>{{group.name}}</li>
+        {% endfor %}
+    </ul>
     </div>
     <div>
         <a href="/home">Home</a>
