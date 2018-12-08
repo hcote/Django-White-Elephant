@@ -2,13 +2,28 @@
 
 {% block content %}
 <main>
-    <ul>
-        {% for group in groups %}
-        <li>{{group.name}}</li>
-        {% endfor %}
-    </ul>
-    </div>
-    <div>
+    <table>
+        <thead>
+            <th>Owner</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Number of Members</th>
+            <th>Max Number of Members<th>
+            <th>Number of Months</th>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr>
+                <td>{{group.owner}}</td>
+                <td>{{group.category}}</td>
+                <td>{{group.description}}</td>
+                <td>{{group.members.count}}</td>
+                <td>{{group.max_num}}</td>
+                <td>{{group.months}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
         <a href="/home">Home</a>
     </div>
 </main>
