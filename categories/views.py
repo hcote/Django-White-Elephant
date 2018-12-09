@@ -17,6 +17,8 @@ def index(request):
             group = form.save(commit=False)
             group.owner = request.user
             group.save()
+            group.members.add(User.objects.get(id=group.owner.id))
+            group.save()
             return render(request, 'categories/index.html')
         else:
             return HttpResponse('error creating group')

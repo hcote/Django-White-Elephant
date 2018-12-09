@@ -4,7 +4,6 @@
 <main>
     <div>
         <h2>{{group.name}}</h2>
-        <h3>Members: </h3>
         {% if group.owner.id == user.id %}
             <form method="POST" action="/groups/{{group.id}}/delete">
                 {% csrf_token %}
@@ -25,13 +24,12 @@
             </form>
         {% endif %}
 
-
-
-        <ul>
+        <details>
+            <summary>Group Members</summary>
             {% for member in group.members.all %}
             <li>{{ member }}</li>
             {% endfor %}
-        </ul>
+        </details>
     </div>
 </main>
 {% endblock %}
