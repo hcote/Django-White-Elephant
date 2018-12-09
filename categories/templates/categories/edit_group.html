@@ -1,0 +1,11 @@
+{% extends 'categories/layout.html' %}
+
+{% block content %}
+<main>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</main>
+{% endblock %}

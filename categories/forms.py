@@ -12,6 +12,11 @@ class NewGroup(forms.ModelForm):
         exclude = ('owner', 'members')
         # fields = ('name', 'description', 'category', 'max_num', 'months')
 
+class EditGroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        exclude = ('owner', 'members')
+
 class EditProfileForm(UserChangeForm):
     class Meta:
         model = User

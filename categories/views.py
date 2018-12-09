@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Categories, Group
 from django.shortcuts import redirect
-from .forms import NewGroup, EditProfileForm
+from .forms import NewGroup, EditProfileForm, EditGroupForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 
@@ -54,6 +54,21 @@ def groups(request):
             'user': request.user,
         }
         return render(request, 'categories/groups.html', context)
+
+def edit_group(request, id):
+    if request.method == "POST":
+        form = EditGroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/groups/details/<int:id>')
+    else:
+        group = Group.objects.get(id=id)
+        form = EditGroupForm()
+        context = {
+            'form': form,
+            'group': group,
+        }
+        return render(request, 'categories/edit_group.html', context)
 
 def group_details(request, id):
     group = Group.objects.get(id=id)

@@ -37,11 +37,7 @@
                         </form>
                     </td>
                     <td>
-                        <form method="POST" action="/groups/{{group.id}}/edit">
-                            {% csrf_token %}
-                            <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
-                            <button type="submit">Edit Group</button>                           
-                        </form>
+                        <button><a href="/groups/{{group.id}}/edit">Edit Group</a></button>
                     </td>
                 <!-- if the group is not at max capacity, user can join -->
                 {% elif group.max_num > group.members.count %}

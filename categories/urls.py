@@ -12,4 +12,6 @@ urlpatterns = [
     path('accounts/profile', views.profile, name='profile'),
     path('accounts/profile/edit', views.edit_profile, name='edit_profile'),
     path('groups/<int:id>/delete', views.group_delete, name = 'group_delete'),
+    path('groups/<int:id>/edit', views.edit_group, name='edit_group'),
+
 ]
