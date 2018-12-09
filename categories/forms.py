@@ -6,6 +6,9 @@ from django.contrib.auth.forms import UserChangeForm
 class NewGroup(forms.ModelForm):
     class Meta:
         model = Group
+        widgets = {
+            'start_date': forms.DateInput(attrs={'class':'datepicker'}),
+        }
         exclude = ('owner', 'members')
         # fields = ('name', 'description', 'category', 'max_num', 'months')
 

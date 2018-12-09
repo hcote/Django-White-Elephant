@@ -20,7 +20,7 @@ class Group(models.Model):
     owner = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     max_num = models.IntegerField(blank=True)
-    start_date = models.CharField(max_length=7, default='0000000', editable=False)
+    start_date = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     months = models.IntegerField(blank=True)
     members = models.ManyToManyField(User, related_name='members', blank=True)
     def __str__(self):
