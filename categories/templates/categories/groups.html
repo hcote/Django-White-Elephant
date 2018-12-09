@@ -27,7 +27,7 @@
                 <td>{{group.months}}</td>
                 {% if group.owner.id == user.id %}
                     <td>
-                        <form method="POST">
+                        <form method="POST" action="/groups/{{group.id}}/delete">
                             {% csrf_token %}
                             <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
                             <button type="submit">Delete Group</button>                           

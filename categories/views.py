@@ -77,3 +77,8 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user)
         context = {'form': form}
         return render(request, 'registration/edit_profile.html', context)
+
+def group_delete(request, id):
+    if request.method == 'POST':
+        Group.objects.get(id = id).delete()
+    return redirect('/groups')
