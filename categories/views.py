@@ -5,6 +5,9 @@ from django.shortcuts import redirect
 from .forms import NewGroup, EditProfileForm, EditGroupForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
+import datetime
+
+today = datetime.date.today()
 
 # Create your views here.
 
@@ -52,6 +55,7 @@ def groups(request):
         context = {
             'groups': groups,
             'user': request.user,
+            'today': today,
         }
         return render(request, 'categories/groups.html', context)
 
