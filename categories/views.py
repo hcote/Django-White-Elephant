@@ -37,11 +37,21 @@ def details(request, id):
     return render(request, 'categories/details.html', context)
 
 def groups(request):
-    groups = Group.objects.all()
-    context = {
-        'groups': groups
-    }
-    return render(request, 'categories/groups.html', context)
+    if request.method == 'POST':
+        print('hello')
+        group_id = request.POST.get('group_id', '')
+        print(request.POST)
+        group = Group.objects.get(id=group_id)
+        user = request.user
+        group.save()
+        group.members.add(User.objects.get(id=user.id))
+        return render(request, 'categories/index.html')
+    else:
+        groups = Group.objects.all()
+        context = {
+            'groups': groups
+        }
+        return render(request, 'categories/groups.html', context)
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')

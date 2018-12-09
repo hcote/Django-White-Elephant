@@ -4,8 +4,10 @@
 <main>
     <table>
         <thead>
+            <th>Group ID</th>
             <th>Owner</th>
             <th>Category</th>
+            <th>Name</th>
             <th>Description</th>
             <th>Number of Members</th>
             <th>Max Number of Members<th>
@@ -14,17 +16,26 @@
         <tbody>
             {% for group in groups %}
             <tr>
+                <td>{{group.id}}</td>
                 <td>{{group.owner}}</td>
                 <td>{{group.category}}</td>
+                <td>{{group.name}}</td>
                 <td>{{group.description}}</td>
                 <td>{{group.members.count}}</td>
                 <td>{{group.max_num}}</td>
                 <td>{{group.months}}</td>
+                {% if group.max_num > group.members.count %}
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                        <button type="submit">Join</button>
+                    </form>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
-        <a href="/home">Home</a>
-    </div>
 </main>
 {% endblock %}
