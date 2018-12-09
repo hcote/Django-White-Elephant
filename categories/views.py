@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Categories, Group
 from django.shortcuts import redirect
-from .forms import NewGroup
+from .forms import NewGroup, EditProfileForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
 
 # Create your views here.
 
@@ -11,7 +12,6 @@ from django.contrib.auth.models import User
 # @login_required
 def index(request):
     if request.method == 'POST':
-
         form = NewGroup(request.POST)
         if form.is_valid():
             group = form.save(commit=False)
@@ -38,7 +38,6 @@ def details(request, id):
 
 def groups(request):
     if request.method == 'POST':
-        print('hello')
         group_id = request.POST.get('group_id', '')
         print(request.POST)
         group = Group.objects.get(id=group_id)
@@ -49,9 +48,25 @@ def groups(request):
     else:
         groups = Group.objects.all()
         context = {
-            'groups': groups
+            'groups': groups,
+            'user': request.user,
         }
         return render(request, 'categories/groups.html', context)
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')
+
+def profile(request):
+    context = {'user': request.user}
+    return render(request, 'registration/profile.html', context)
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('/accounts/profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+        context = {'form': form}
+        return render(request, 'registration/edit_profile.html', context)

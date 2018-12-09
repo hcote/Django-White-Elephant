@@ -33,9 +33,13 @@
                     </form>
                 </td>
                 {% endif %}
+                {% if group.owner.id == user.id %}
+                <td>My group</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </main>
 {% endblock %}
+<!-- detail page -->

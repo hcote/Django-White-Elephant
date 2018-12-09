@@ -1,1 +1,13 @@
-<h1>profile page</h1>
+{% extends 'categories/layout.html' %}
+
+{% block content %}
+<main>
+    <h1>Profile</h1>
+    <p>Username: {{user.username}}</p>
+    <p>First Name: {{user.first_name}}</p>
+    <p>Last Name: {{user.last_name}}</p>
+    <p>Email: {{user.Email}}</p>
+    <p>Date Joined: {{user.date_joined}}</p>
+    <a href="/accounts/profile/edit">Edit Profile</a>
+</main>
+{% endblock %}
