@@ -15,6 +15,9 @@ class NewGroup(forms.ModelForm):
 class EditGroupForm(forms.ModelForm):
     class Meta:
         model = Group
+        widgets = {
+            'start_date': forms.DateInput(attrs={'class':'datepicker'}),
+        }
         exclude = ('owner', 'members')
 
 class EditProfileForm(UserChangeForm):

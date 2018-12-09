@@ -56,14 +56,16 @@ def groups(request):
         return render(request, 'categories/groups.html', context)
 
 def edit_group(request, id):
+    group = Group.objects.get(id=id)
     if request.method == "POST":
-        form = EditGroupForm(request.POST)
+        form = EditGroupForm(request.POST, instance=group)
         if form.is_valid():
-            form.save()
-            return redirect('/groups/details/<int:id>')
+            group = form.save(commit=False)
+            group.owner = request.user
+            group.save()
+            return redirect('/groups/details/' + str(id))
     else:
-        group = Group.objects.get(id=id)
-        form = EditGroupForm()
+        form = EditGroupForm(instance=group)
         context = {
             'form': form,
             'group': group,
@@ -71,11 +73,20 @@ def edit_group(request, id):
         return render(request, 'categories/edit_group.html', context)
 
 def group_details(request, id):
-    group = Group.objects.get(id=id)
-    context = {
-        'group': group,
-    }
-    return render(request, 'categories/group_details.html', context)
+    if request.method == 'POST':
+        group_id = request.POST.get('group_id', '')
+        print(request.POST)
+        group = Group.objects.get(id=group_id)
+        user = request.user
+        group.save()
+        group.members.add(User.objects.get(id=user.id))
+        return redirect('/groups')
+    else:    
+        group = Group.objects.get(id=id)
+        context = {
+            'group': group,
+        }
+        return render(request, 'categories/group_details.html', context)
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')

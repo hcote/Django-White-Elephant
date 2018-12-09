@@ -2,7 +2,7 @@
 
 {% block content %}
 <main>
-    <form method="POST">
+    <form method="POST" autocomplete="off">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
