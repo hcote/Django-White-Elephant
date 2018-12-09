@@ -25,6 +25,7 @@
                 <td>{{group.members.count}}</td>
                 <td>{{group.max_num}}</td>
                 <td>{{group.months}}</td>
+                <!-- able to delete if you made the group -->
                 {% if group.owner.id == user.id %}
                     <td>
                         <form method="POST" action="/groups/{{group.id}}/delete">
@@ -33,6 +34,14 @@
                             <button type="submit">Delete Group</button>                           
                         </form>
                     </td>
+                    <td>
+                        <form method="POST" action="/groups/{{group.id}}/edit">
+                            {% csrf_token %}
+                            <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                            <button type="submit">Edit Group</button>                           
+                        </form>
+                    </td>
+                <!-- if the group is not at max capacity, user can join -->
                 {% elif group.max_num > group.members.count %}
                 <td>
                     <form method="POST">

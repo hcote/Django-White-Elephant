@@ -5,6 +5,28 @@
     <div>
         <h2>{{group.name}}</h2>
         <h3>Members: </h3>
+        {% if group.owner.id == user.id %}
+            <form method="POST" action="/groups/{{group.id}}/delete">
+                {% csrf_token %}
+                <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                <button type="submit">Delete Group</button>                           
+            </form>
+            <form method="POST" action="/groups/{{group.id}}/edit">
+                {% csrf_token %}
+                <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                <button type="submit">Edit Group</button>                           
+            </form>
+        <!-- if the group is not at max capacity, user can join -->
+        {% elif group.max_num > group.members.count %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                <button type="submit">Join</button>
+            </form>
+        {% endif %}
+
+
+
         <ul>
             {% for member in group.members.all %}
             <li>{{ member }}</li>
