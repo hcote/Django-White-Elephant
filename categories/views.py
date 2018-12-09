@@ -29,12 +29,12 @@ def index(request):
         }
         return render(request, 'categories/index.html', context)
 
-def details(request, id):
+def category_details(request, id):
     category = Categories.objects.get(id=id)
     context = {
         'category': category,
     }
-    return render(request, 'categories/details.html', context)
+    return render(request, 'categories/category_details.html', context)
 
 def groups(request):
     if request.method == 'POST':
@@ -44,7 +44,7 @@ def groups(request):
         user = request.user
         group.save()
         group.members.add(User.objects.get(id=user.id))
-        return render(request, 'categories/index.html')
+        return redirect('/groups')
     else:
         groups = Group.objects.all()
         context = {
@@ -52,6 +52,13 @@ def groups(request):
             'user': request.user,
         }
         return render(request, 'categories/groups.html', context)
+
+def group_details(request, id):
+    group = Group.objects.get(id=id)
+    context = {
+        'group': group,
+    }
+    return render(request, 'categories/group_details.html', context)
 
 def default_redirect_login_page(request):
     return redirect('/accounts/login')

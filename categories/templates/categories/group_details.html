@@ -1,0 +1,15 @@
+{% extends 'categories/layout.html' %}
+
+{% block content %}
+<main>
+    <div>
+        <h2>{{group.name}}</h2>
+        <h3>Members: </h3>
+        <ul>
+            {% for member in group.members.all %}
+            <li>{{ member }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+{% endblock %}

@@ -12,6 +12,7 @@
             <th>Number of Members</th>
             <th>Max Number of Members<th>
             <th>Number of Months</th>
+            <th>Join</th>
         </thead>
         <tbody>
             {% for group in groups %}
@@ -19,12 +20,20 @@
                 <td>{{group.id}}</td>
                 <td>{{group.owner}}</td>
                 <td>{{group.category}}</td>
-                <td>{{group.name}}</td>
+                <td><a href="groups/details/{{group.id}}">{{group.name}}</a></td>
                 <td>{{group.description}}</td>
                 <td>{{group.members.count}}</td>
                 <td>{{group.max_num}}</td>
                 <td>{{group.months}}</td>
-                {% if group.max_num > group.members.count %}
+                {% if group.owner.id == user.id %}
+                    <td>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                            <button type="submit">Delete Group</button>                           
+                        </form>
+                    </td>
+                {% elif group.max_num > group.members.count %}
                 <td>
                     <form method="POST">
                         {% csrf_token %}
@@ -33,13 +42,11 @@
                     </form>
                 </td>
                 {% endif %}
-                {% if group.owner.id == user.id %}
-                <td>My group</td>
-                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </main>
 {% endblock %}
-<!-- detail page -->
+<!-- detail page for each group-->
+<!-- automatically make the owner join the group -->
