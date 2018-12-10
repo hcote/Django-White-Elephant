@@ -89,6 +89,7 @@ def group_details(request, id):
         group = Group.objects.get(id=id)
         context = {
             'group': group,
+            'today': today,
         }
         return render(request, 'categories/group_details.html', context)
 

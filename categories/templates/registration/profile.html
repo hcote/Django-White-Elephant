@@ -2,12 +2,17 @@
 
 {% block content %}
 <main>
-    <h1>Profile</h1>
-    <p>Username: {{user.username}}</p>
-    <p>First Name: {{user.first_name}}</p>
-    <p>Last Name: {{user.last_name}}</p>
-    <p>Email: {{user.Email}}</p>
-    <p>Date Joined: {{user.date_joined}}</p>
-    <a href="/accounts/profile/edit">Edit Profile</a>
+    <div>
+        <h1>Profile</h1>
+        <p>Username: {{user.username}}</p>
+        <p>First Name: {{user.first_name}}</p>
+        <p>Last Name: {{user.last_name}}</p>
+        <p>Email: {{user.Email}}</p>
+        <p>Date Joined: {{user.date_joined}}</p>
+        <a href="/accounts/profile/edit">Edit Profile</a>
+    </div>
+    <div>
+        <h3>Alerts</h3>
+    </div>
 </main>
 {% endblock %}
