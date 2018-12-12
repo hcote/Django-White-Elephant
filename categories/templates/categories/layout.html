@@ -4,24 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Surprise Me</title>
+    <title>White Elephant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'style.css' %}" />
     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
     <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <!-- Javascript -->
-    <script>
-        $(function() {
-        $( ".datepicker" ).datepicker();
-        // $( ".datepicker" ).datepicker("show");
-        });
-    </script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'style.css' %}" />
+    <script src="{% static 'app.js' %}"></script>
 </head>
 <body>
     <header>
         <div>
-            <span>Surprise Me</span>
+            <span>White Elephant</span>
         </div>
         <div>
             <a href="/groups">All Groups</a>
