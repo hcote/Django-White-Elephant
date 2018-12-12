@@ -19,6 +19,7 @@
                 <button type="submit">Join</button>
             </form>
         {% endif %}
+        <p>Group Owner: {{group.owner}}</p>
         {% if today > group.start_date %}
             <p>Status: Group Already Started</p>
         {% else %}

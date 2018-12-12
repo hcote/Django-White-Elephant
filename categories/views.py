@@ -115,3 +115,15 @@ def group_delete(request, id):
     if request.method == 'POST':
         Group.objects.get(id = id).delete()
     return redirect('/groups')
+
+def leave_group(request, id):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id', '')
+        group_id = request.POST.get('group_id', '')
+        group = Group.objects.get(id=group_id)
+        group.members.remove(user_id)
+        group.save()
+        return redirect('/groups')
+
+
+# 'already a member' (instead of join on the group.html)

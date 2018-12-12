@@ -56,6 +56,14 @@
                 {% if today > group.start_date %}
                 <td>Group Already Started</td>
                 {% endif %}
+                <td>
+                    <form action="/groups/{{group.id}}/leave" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="group_id" value="{{group.id}}" hidden=true>
+                        <input type="text" name="user_id" value="{{user.id}}" hidden=true> 
+                        <button type="submit">Leave Group</button>                    
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
