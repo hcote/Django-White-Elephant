@@ -6,3 +6,5 @@ Users will join a group of a specific product category
 can sign up for a group where every month, for 3 months, I send another person in the group a book of my choosing, 
 and a different person will send me a book of their choosing. It's an app that promotes sharing your hobbies and 
 interests with others in a fun way.
+
+https://trello.com/b/yj9dBUd7/white-elephant
