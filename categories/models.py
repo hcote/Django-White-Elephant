@@ -26,8 +26,8 @@ class Group(models.Model):
     def __str__(self):
         return self.name
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     groups = models.ManyToManyField(Group, related_name='part_of_these_groups', blank=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    groups = models.ManyToManyField(Group, related_name='groups_a_part_of', blank=True)
 
 # def

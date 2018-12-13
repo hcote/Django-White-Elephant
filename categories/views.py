@@ -9,8 +9,6 @@ import datetime
 
 today = datetime.date.today()
 
-# Create your views here.
-
 # un-comment line below to restrict page access to only logged in users
 # @login_required
 def index(request):
@@ -46,7 +44,11 @@ def groups(request):
         group_id = request.POST.get('group_id', '')
         print(request.POST)
         group = Group.objects.get(id=group_id)
-        user = request.user
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+        print(user)
+        print(group)
+        user.groups.add(group_id)
         group.save()
         group.members.add(User.objects.get(id=user.id))
         return redirect('/groups')
