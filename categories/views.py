@@ -24,6 +24,7 @@ def index(request):
         else:
             return HttpResponse('error creating group')
     else:
+        print('hello')
         categories = Categories.objects.all()
         form = NewGroup()
         context = {
@@ -48,7 +49,7 @@ def groups(request):
         user = User.objects.get(id=user_id)
         print(user)
         print(group)
-        user.groups.add(group_id)
+        # user.groups.add(group_id)
         group.save()
         group.members.add(User.objects.get(id=user.id))
         return redirect('/groups')

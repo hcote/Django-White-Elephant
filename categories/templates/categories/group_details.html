@@ -4,6 +4,7 @@
 <main>
     <div>
         <h2>{{group.name}}</h2>
+        <p>{{group.description}}</p>
         {% if group.owner.id == user.id %}
             <form method="POST" action="/groups/{{group.id}}/delete">
                 {% csrf_token %}
