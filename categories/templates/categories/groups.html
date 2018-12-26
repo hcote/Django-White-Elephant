@@ -34,7 +34,7 @@
                 <!-- {% if group.max_num > group.members.count %}
                     <td>False</td>
                     {% endif %} -->
-                {% if group.start_date > today %}
+                {% if group.start_date > today and group.owner.id != user.id %}
                     <td>
                         <form method="POST">
                             {% csrf_token %}
@@ -45,27 +45,37 @@
                     {% endif %}
                 {% if today > group.start_date %}
                     <td>Group Already Started</td>
-                    {% else %}
-                        <td>
-                            <form action="/groups/{{group.id}}/leave" method="POST">
-                                {% csrf_token %}
-                                <input type="text" name="group_id" value="{{group.id}}" hidden=true>
-                                <input type="text" name="user_id" value="{{user.id}}" hidden=true> 
-                                <button type="submit">Leave Group</button>                    
-                            </form>
-                        </td>
-                        {% endif %}
+                    {% elif group.owner.id == user.id%}
+                        <td>(your group - cannot leave)</td>
+                        {% else %}
+                            <td>
+                                <form action="/groups/{{group.id}}/leave" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" name="group_id" value="{{group.id}}" hidden=true>
+                                    <input type="text" name="user_id" value="{{user.id}}" hidden=true> 
+                                    <button type="submit">Leave Group</button>                    
+                                </form>
+                            </td>
+                            {% endif %}
                     <!-- able to delete if you made the group -->
-                    {% if group.owner.id == user.id %}
+                    {% if group.owner.id == user.id and group.start_date > today %}
+                        <td>
+                            <button><a href="/groups/{{group.id}}/edit">Edit Group</a></button>
+                        </td>
                         <td>
                             <form method="POST" action="/groups/{{group.id}}/delete">
                                 {% csrf_token %}
                                 <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
-                                <button type="submit">X</button>                           
+                                <button type="submit">Delete Group</button>                           
                             </form>
                         </td>
+                        {% elif group.owner.id == user.id %}
                         <td>
-                            <button><a href="/groups/{{group.id}}/edit">Edit Group</a></button>
+                            <form method="POST" action="/groups/{{group.id}}/delete">
+                                {% csrf_token %}
+                                <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                                <button type="submit">Delete Group</button>                           
+                            </form>
                         </td>
                         {% endif %}
             </tr>
