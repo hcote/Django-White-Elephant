@@ -49,10 +49,10 @@ def groups(request):
         user = User.objects.get(id=user_id)
         print(user)
         print(group)
-        user.groups.add(group_id)
+        # user.groups.add(group_id)
         group.save()
         group.members.add(User.objects.get(id=user.id))
-        user.groups.add(group_id)
+        # user.groups.add(group_id)
         return redirect('/groups')
     else:
         groups = Group.objects.all()

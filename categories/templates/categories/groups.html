@@ -9,12 +9,14 @@
             <th>Category</th>
             <th>Name</th>
             <th>Description</th>
-            <th>Number of Members</th>
             <th>Start Date</th>
-            <th>Max Number of Members<th>
-            <th>Number of Months</th>
-            <th>Join</th>
+            <th>Number of Members</th>
+            <th>Max Number of Members</th>
+            {% if group.max_num > group.members.count %}
+                <th>Group Full</th>
+                {% endif %}
             <th>Status</th>
+            <th>Actions</th>
         </thead>
         <tbody>
             {% for group in groups %}
@@ -24,47 +26,48 @@
                 <td>{{group.category}}</td>
                 <td><a href="groups/details/{{group.id}}">{{group.name}}</a></td>
                 <td>{{group.description}}</td>
-                <td>{{group.members.count}}</td>
                 <td>{{group.start_date}}</td>
+                <td>{{group.members.count}}</td>
                 <td>{{group.max_num}}</td>
-                <td>{{group.months}}</td>
-                <!-- able to delete if you made the group -->
-                {% if group.owner.id == user.id %}
+                <!-- <td>{{group.months}}</td> -->
+                <!-- if the group is not at max capacity, user can join -->
+                <!-- {% if group.max_num > group.members.count %}
+                    <td>False</td>
+                    {% endif %} -->
+                {% if group.start_date > today %}
                     <td>
-                        <form method="POST" action="/groups/{{group.id}}/delete">
+                        <form method="POST">
                             {% csrf_token %}
                             <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
-                            <button type="submit">Delete Group</button>                           
+                            Open: <button type="submit">Join</button>
                         </form>
                     </td>
-                    <td>
-                        <button><a href="/groups/{{group.id}}/edit">Edit Group</a></button>
-                    </td>
-                <!-- if the group is not at max capacity, user can join -->
-                {% elif group.max_num > group.members.count %}
-                <td>
+                    {% endif %}
                 {% if today > group.start_date %}
-                <td>Still Open</td>
-                {% endif %}
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
-                    <button type="submit">Join</button>
-                </form>
-                </td>
-                {% endif %}
-                {% if today > group.start_date %}
-                <td>Group Already Started</td>
-                {% else %}
-                <td>
-                    <form action="/groups/{{group.id}}/leave" method="POST">
-                        {% csrf_token %}
-                        <input type="text" name="group_id" value="{{group.id}}" hidden=true>
-                        <input type="text" name="user_id" value="{{user.id}}" hidden=true> 
-                        <button type="submit">Leave Group</button>                    
-                    </form>
-                </td>
-                {% endif %}
+                    <td>Group Already Started</td>
+                    {% else %}
+                        <td>
+                            <form action="/groups/{{group.id}}/leave" method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="group_id" value="{{group.id}}" hidden=true>
+                                <input type="text" name="user_id" value="{{user.id}}" hidden=true> 
+                                <button type="submit">Leave Group</button>                    
+                            </form>
+                        </td>
+                        {% endif %}
+                    <!-- able to delete if you made the group -->
+                    {% if group.owner.id == user.id %}
+                        <td>
+                            <form method="POST" action="/groups/{{group.id}}/delete">
+                                {% csrf_token %}
+                                <input type="text" name='group_id' value={{group.id}} id="" hidden=true>
+                                <button type="submit">X</button>                           
+                            </form>
+                        </td>
+                        <td>
+                            <button><a href="/groups/{{group.id}}/edit">Edit Group</a></button>
+                        </td>
+                        {% endif %}
             </tr>
             {% endfor %}
         </tbody>
