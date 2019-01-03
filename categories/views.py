@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Categories, Group
 from django.shortcuts import redirect
-from .forms import NewGroup, EditProfileForm, EditGroupForm
+from .forms import NewGroup, EditProfileForm, EditGroupForm, RegistrationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 import datetime
 
 today = datetime.date.today()
@@ -133,5 +133,13 @@ def leave_group(request, id):
         group.save()
         return redirect('/groups')
 
-
-# 'already a member' (instead of join on the group.html)
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect ('/home')
+    else:
+        form = RegistrationForm()
+        context = {'form': form}
+        return render(request, 'categories/register.html', context)
