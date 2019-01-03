@@ -40,6 +40,8 @@ def category_details(request, id):
     }
     return render(request, 'categories/category_details.html', context)
 
+member_ids = set()
+
 def groups(request):
     if request.method == 'POST':
         group_id = request.POST.get('group_id', '')
@@ -51,6 +53,8 @@ def groups(request):
         print(group)
         # user.groups.add(group_id)
         group.save()
+        member_ids.add(user.id)
+        print(member_ids)
         group.members.add(User.objects.get(id=user.id))
         # user.groups.add(group_id)
         return redirect('/groups')

@@ -19,7 +19,8 @@ class Group(models.Model):
     description = models.TextField(blank=True)
     owner = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    max_num = models.IntegerField(blank=True)
+    price_range = models.IntegerField(blank=True, default='')
+    max_members = models.IntegerField(blank=True)
     start_date = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     months = models.IntegerField(blank=True)
     members = models.ManyToManyField(User, related_name='members', blank=True)
@@ -28,6 +29,11 @@ class Group(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    groups = models.ManyToManyField(Group, related_name='groups_a_part_of', blank=True)
-
-# def
+    address = models.CharField(max_length=50, default='')
+    address_two = models.CharField(max_length=10, default='', blank=True)
+    city = models.CharField(max_length=50, default='')
+    state = models.CharField(max_length=2, default='')
+    zipcode = models.CharField(max_length=5, default='')
+    
+    # groups = models.ManyToManyField(Group, related_name='groups_a_part_of', blank=True)
+    # within these groups they have ID's of user they are sending gifts to
