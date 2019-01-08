@@ -40,7 +40,7 @@ def category_details(request, id):
     }
     return render(request, 'categories/category_details.html', context)
 
-member_ids = set()
+member_ids = set() # store in db
 
 def groups(request):
     if request.method == 'POST':

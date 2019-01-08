@@ -31,7 +31,6 @@ class RegistrationForm(UserCreationForm):
     city = forms.CharField(required=True)
     state = forms.CharField(required=True)
     zipcode = forms.CharField(required=True)
-
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'address', 'address_two', 'city', 'state', 'zipcode')
