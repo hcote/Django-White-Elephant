@@ -26,7 +26,7 @@ class Group(models.Model):
     start_date = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     months = models.IntegerField(blank=True)
     members = models.ManyToManyField(User, related_name='members', blank=True)
-    member_ids = models.CharField(validators=[int_list_validator], max_length=5, default='', blank=True)
+    # member_ids = models.CharField(validators=[int_list_validator], max_length=5, default='', blank=True)
     def __str__(self):
         return self.name
 
