@@ -1,4 +1,4 @@
-# surprise-me
+# White Elephant
 
 This is a web application built on the django framework. Angular will be used for the front end. 
 Users will join a group of a specific product category 
